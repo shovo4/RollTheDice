@@ -1,29 +1,43 @@
+var hasPlayer1Rolled = false;
+var hasPlayer2Rolled = false;
 
-var randomNumber1 = Math.floor(Math.random() * 6) + 1; //1-6
+function rollDice(playerNumber) {
+  var randomNumber = Math.floor(Math.random() * 6) + 1;
+  var randomImageSource = "images/dice" + randomNumber + ".png";
 
-var randomDiceImage = "dice" + randomNumber1 + ".png"; //dice1.png - dice6.png
+  // Update the dice image
+  document.querySelector(".img" + playerNumber).setAttribute("src", randomImageSource);
 
-var randomImageSource = "images/" + randomDiceImage; //images/dice1.png - images/dice6.png
+  // Update the player names
+  var playerName = document.getElementById("player" + playerNumber + "Name").value;
+  document.getElementById("name" + playerNumber).innerText = playerName ? playerName : "Player " + playerNumber;
 
-var image1 = document.querySelectorAll("img")[0];
+  // Set the roll flag for the player
+  if (playerNumber === 1) {
+    hasPlayer1Rolled = true;
+  } else if (playerNumber === 2) {
+    hasPlayer2Rolled = true;
+  }
 
-image1.setAttribute("src", randomImageSource);
-
-
-var randomNumber2 = Math.floor(Math.random() * 6) + 1;
-
-var randomImageSource2 = "images/dice" + randomNumber2 + ".png";
-
-document.querySelectorAll("img")[1].setAttribute("src", randomImageSource2);
-
-
-//If player 1 wins
-if (randomNumber1 > randomNumber2) {
-  document.querySelector("h1").innerHTML = "🚩 Play 1 Wins!";
+  // Compare dice if both players have rolled
+  if (hasPlayer1Rolled && hasPlayer2Rolled) {
+    compareDice();
+  }
 }
-else if (randomNumber2 > randomNumber1) {
-  document.querySelector("h1").innerHTML = "Player 2 Wins! 🚩";
-}
-else {
-  document.querySelector("h1").innerHTML = "Draw!";
+
+function compareDice() {
+  var randomNumber1 = parseInt(document.querySelector(".img1").getAttribute("src").charAt(11));
+  var randomNumber2 = parseInt(document.querySelector(".img2").getAttribute("src").charAt(11));
+
+  if (randomNumber1 > randomNumber2) {
+    document.querySelector("h1").innerHTML = "🚩 " + (document.getElementById("name1").innerText || "Player 1") + " Wins!";
+  } else if (randomNumber2 > randomNumber1) {
+    document.querySelector("h1").innerHTML = (document.getElementById("name2").innerText || "Player 2") + " Wins! 🚩";
+  } else {
+    document.querySelector("h1").innerHTML = "Draw!";
+  }
+
+  // Reset the roll flags
+  hasPlayer1Rolled = false;
+  hasPlayer2Rolled = false;
 }
