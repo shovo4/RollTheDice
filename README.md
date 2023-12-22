@@ -38,4 +38,5 @@ img
 - JavaScript (ES6)
 
 ## Demo Pictures
-- 
+- ![img1](https://github.com/shovo4/RollTheDice/assets/58551093/00d84be4-9b69-4383-b624-0530b2f942dd)
+- ![img2](https://github.com/shovo4/RollTheDice/assets/58551093/3bbceb59-190d-4f64-bedd-18678045cc59)
